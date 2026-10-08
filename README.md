@@ -98,6 +98,12 @@ src/tools.ts        四个 agent 工具
 src/client/         浏览器半边（侧栏行 + 主区页面）
 ```
 
+## 致谢
+
+DSH 插件（cordis 行 + `dsh.bundle.patch` + `dsh.client` 浏览器半边 + slot 注册）的 API 用法参考了社区开源插件的公开实现结构，
+其中 [@linxin666/dsh-ssh](https://www.npmjs.com/package/@linxin666/dsh-ssh)（Apache-2.0）与
+[dshmarket](https://www.npmjs.com/package/dshmarket) 的源码是最主要的参考。本仓库的代码为独立实现，不含上述项目的代码。
+
 ## 许可
 
 MIT
