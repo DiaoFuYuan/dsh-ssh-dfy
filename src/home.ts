@@ -18,5 +18,5 @@ export function dshHome(): string {
 
 /** Absolute path of the host registry file (created on first write). */
 export function hostsFile(): string {
-  return join(dshHome(), 'dsh-ssh-workspace', 'hosts.json')
+  return join(dshHome(), 'dsh-ssh-dfy', 'hosts.json')
 }

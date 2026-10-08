@@ -18,11 +18,11 @@ const ctx = {
   tools: { register(tool) { registered.tools.push(tool.name); return () => {} } },
 }
 
-assert.equal(name, 'ssh-workspace', 'plugin name')
+assert.equal(name, 'ssh-dfy', 'plugin name')
 apply(ctx)
 assert.deepEqual(registered.tools.sort(), ['ssh_exec', 'ssh_hosts', 'ssh_ls', 'ssh_read'], 'agent tools')
 assert.equal(registered.routes.length, 4, 'routes')
-assert.ok(registered.routes.every(path => path.startsWith('/api/dsh-ssh-workspace/')), 'route family')
+assert.ok(registered.routes.every(path => path.startsWith('/api/dsh-ssh-dfy/')), 'route family')
 console.log('routes:', registered.routes.join(', '))
 console.log('tools :', registered.tools.join(', '))
 

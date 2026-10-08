@@ -10,7 +10,7 @@ import { sshApi, type AuthKind, type HostInput, type HostPublic, type RemoteList
 export function WorkspaceIcon({ size }: { size: number; active?: boolean }) {
   return (
     <svg
-      data-dsh-panel-entry="ssh-workspace"
+      data-dsh-panel-entry="ssh-dfy"
       viewBox="0 0 16 16"
       width={size}
       height={size}

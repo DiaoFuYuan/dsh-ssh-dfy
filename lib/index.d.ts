@@ -1,7 +1,7 @@
 /**
- * dsh-ssh-workspace — host half.
+ * dsh-ssh-dfy — host half.
  *
- * Mounts the SSH engine (ssh2 connection pool), the /api/dsh-ssh-workspace
+ * Mounts the SSH engine (ssh2 connection pool), the /api/dsh-ssh-dfy
  * route family the browser panel drives, and four agent tools (ssh_hosts,
  * ssh_exec, ssh_ls, ssh_read). The browser half (./client) renders the
  * workspace panel: pick a host, pick the workspace root, then browse the tree
@@ -9,7 +9,7 @@
  */
 import type { Context } from '@deepseek-ai/cordis';
 /** Stable cordis plugin name. */
-export declare const name = "ssh-workspace";
+export declare const name = "ssh-dfy";
 /** Services required before the SSH surfaces can mount. */
 export declare const inject: string[];
 /**

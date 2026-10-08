@@ -9,7 +9,7 @@ export interface RouteDeps {
     engine: SshEngine;
 }
 /**
- * Build the /api/dsh-ssh-workspace route family. Every route is loopback-only:
+ * Build the /api/dsh-ssh-dfy route family. Every route is loopback-only:
  * these endpoints drive remote servers and store credentials, so a LAN-exposed
  * dsh web deployment must never serve them.
  * @param deps - store and engine.

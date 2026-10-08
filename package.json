@@ -1,5 +1,5 @@
 {
-  "name": "dsh-ssh-workspace",
+  "name": "dsh-ssh-dfy",
   "version": "0.1.0",
   "description": "Remote SSH workspace for DeepSeek Harness: agent SSH tools plus a sidebar file browser that starts from a workspace root you pick.",
   "type": "module",

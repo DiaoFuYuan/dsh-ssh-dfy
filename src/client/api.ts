@@ -1,14 +1,14 @@
 /**
- * Browser-side client for the /api/dsh-ssh-workspace route family.
+ * Browser-side client for the /api/dsh-ssh-dfy route family.
  * Every call is same-origin and loopback-only on the host side.
  */
 
 /** Route family (kept in sync with src/protocol.ts). */
 const API = {
-  hosts: '/api/dsh-ssh-workspace/hosts',
-  home: '/api/dsh-ssh-workspace/home',
-  list: '/api/dsh-ssh-workspace/list',
-  read: '/api/dsh-ssh-workspace/read',
+  hosts: '/api/dsh-ssh-dfy/hosts',
+  home: '/api/dsh-ssh-dfy/home',
+  list: '/api/dsh-ssh-dfy/list',
+  read: '/api/dsh-ssh-dfy/read',
 }
 
 /** Authentication kind a host entry uses. */

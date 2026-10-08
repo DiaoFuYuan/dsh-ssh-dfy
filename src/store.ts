@@ -24,7 +24,7 @@ export interface HostInput {
 }
 
 /**
- * The host registry: a small JSON document under $DSH_HOME/dsh-ssh-workspace.
+ * The host registry: a small JSON document under $DSH_HOME/dsh-ssh-dfy.
  * Secrets (password, passphrase) live here and are never projected into any
  * agent-facing or browser-facing view.
  */

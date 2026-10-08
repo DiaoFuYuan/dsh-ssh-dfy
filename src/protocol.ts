@@ -1,9 +1,9 @@
 /** Route family owned by this plugin (loopback-only). */
 export const API = {
-  hosts: '/api/dsh-ssh-workspace/hosts',
-  home: '/api/dsh-ssh-workspace/home',
-  list: '/api/dsh-ssh-workspace/list',
-  read: '/api/dsh-ssh-workspace/read',
+  hosts: '/api/dsh-ssh-dfy/hosts',
+  home: '/api/dsh-ssh-dfy/home',
+  list: '/api/dsh-ssh-dfy/list',
+  read: '/api/dsh-ssh-dfy/read',
 } as const
 
 /** Authentication kind a host entry uses. */

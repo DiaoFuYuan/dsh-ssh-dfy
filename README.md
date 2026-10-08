@@ -1,4 +1,4 @@
-# dsh-ssh-workspace
+# dsh-ssh-dfy
 
 **DeepSeek Harness 的远程 SSH 工作区插件**：让 Agent 在对话里直接操作远程服务器，并在 Web 侧边栏里
 **先选工作区根目录，再浏览它下面的所有文件**。
@@ -39,7 +39,7 @@
 
 每台主机三种认证：`ssh-agent`、私钥文件（可带 passphrase）、密码。
 
-- 密码 / passphrase 存放在 `$DSH_HOME/dsh-ssh-workspace/hosts.json`，目录 `0700`、文件 `0600`；
+- 密码 / passphrase 存放在 `$DSH_HOME/dsh-ssh-dfy/hosts.json`，目录 `0700`、文件 `0600`；
 - **任何面向 Agent 或浏览器的 JSON 都不含密码**（只有 `hasPassword` 之类的布尔标记）；
 - 推荐用 ssh-agent 或私钥，避免在磁盘上留明文口令。
 
@@ -50,19 +50,19 @@
 ### 从 npm
 
 ```sh
-dsh plugin --profile <你的 profile> add dsh-ssh-workspace
+dsh plugin --profile <你的 profile> add dsh-ssh-dfy
 ```
 
 ### 从 GitHub
 
 ```sh
-dsh plugin --profile <你的 profile> add github:DiaoFuYuan/dsh-ssh-workspace
+dsh plugin --profile <你的 profile> add github:DiaoFuYuan/dsh-ssh-dfy
 ```
 
 ### 本地开发（link）
 
 ```sh
-dsh plugin --profile <你的 profile> add link:/absolute/path/to/dsh-ssh-workspace
+dsh plugin --profile <你的 profile> add link:/absolute/path/to/dsh-ssh-dfy
 ```
 
 装好后**重启 DSH**（客户端半边需要宿主重新下发 bundle）。侧栏会出现 **SSH** 入口。
@@ -71,7 +71,7 @@ dsh plugin --profile <你的 profile> add link:/absolute/path/to/dsh-ssh-workspa
 
 ## 安全边界
 
-- 所有 `/api/dsh-ssh-workspace/*` 路由都是 **loopback-only**：非回环地址直接 403，
+- 所有 `/api/dsh-ssh-dfy/*` 路由都是 **loopback-only**：非回环地址直接 403，
   并且校验 `Host` 头与 `Origin` / `Sec-Fetch-Site`，所以把 dsh web 暴露到局域网时
   这些"能驱动远程服务器"的接口不会被外部调用。
 - 远程命令输出**原样返回**，可能包含远端环境里的敏感信息，注意对话记录。
@@ -91,9 +91,9 @@ npm test           # host 半边 smoke 测试
 
 ```
 src/index.ts        host 半边入口（注册 routes + tools）
-src/routes.ts       /api/dsh-ssh-workspace 路由族（loopback-only）
+src/routes.ts       /api/dsh-ssh-dfy 路由族（loopback-only）
 src/engine.ts       ssh2 连接池：exec / SFTP 列目录 / 读文件
-src/store.ts        主机注册表（$DSH_HOME/dsh-ssh-workspace/hosts.json）
+src/store.ts        主机注册表（$DSH_HOME/dsh-ssh-dfy/hosts.json）
 src/tools.ts        四个 agent 工具
 src/client/         浏览器半边（侧栏行 + 主区页面）
 ```

@@ -1,5 +1,5 @@
 /**
- * dsh-ssh-workspace — browser half.
+ * dsh-ssh-dfy — browser half.
  *
  * Registers the sidebar row and the center-column page for the SSH workspace,
  * exactly like the shipped panel pages: the shell owns the row box, the label
@@ -14,7 +14,7 @@ import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
 import { WorkspaceIcon, WorkspacePanel } from './panel'
 
 /** The panel id shared by the sidebar row and the main-slot page. */
-export const PANEL_ID = 'ssh-workspace'
+export const PANEL_ID = 'ssh-dfy'
 
 /** Row order among the shell's global panel rows. */
 const PANEL_ORDER = 45
@@ -35,7 +35,7 @@ interface SlotRegistry {
 export function apply(ctx: ClientContext): void {
   const slots = (ctx as unknown as { slots?: SlotRegistry }).slots
   if (slots === undefined) {
-    console.warn('[dsh-ssh-workspace] slot registry missing; panel not mounted')
+    console.warn('[dsh-ssh-dfy] slot registry missing; panel not mounted')
     return
   }
   const disposers: Array<() => void> = []
@@ -51,9 +51,9 @@ export function apply(ctx: ClientContext): void {
       key: PANEL_ID,
     }, WorkspacePanel)))
   } catch (error) {
-    console.warn('[dsh-ssh-workspace] panel registration failed:', error)
+    console.warn('[dsh-ssh-dfy] panel registration failed:', error)
   }
   ctx.effect(() => () => {
     for (const dispose of disposers.splice(0)) dispose()
-  }, 'dsh-ssh-workspace: ui mounts')
+  }, 'dsh-ssh-dfy: ui mounts')
 }

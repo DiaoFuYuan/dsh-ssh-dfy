@@ -1,7 +1,7 @@
 /**
- * dsh-ssh-workspace — host half.
+ * dsh-ssh-dfy — host half.
  *
- * Mounts the SSH engine (ssh2 connection pool), the /api/dsh-ssh-workspace
+ * Mounts the SSH engine (ssh2 connection pool), the /api/dsh-ssh-dfy
  * route family the browser panel drives, and four agent tools (ssh_hosts,
  * ssh_exec, ssh_ls, ssh_read). The browser half (./client) renders the
  * workspace panel: pick a host, pick the workspace root, then browse the tree
@@ -16,7 +16,7 @@ import { makeRoutes } from './routes.js'
 import { sshExecTool, sshHostsTool, sshLsTool, sshReadTool } from './tools.js'
 
 /** Stable cordis plugin name. */
-export const name = 'ssh-workspace'
+export const name = 'ssh-dfy'
 
 /** Services required before the SSH surfaces can mount. */
 export const inject = ['webServer', 'tools']
@@ -29,12 +29,12 @@ export function apply(ctx: Context): void {
   const store = new HostStore()
   const engine = new SshEngine(store)
 
-  ctx.effect(() => () => { engine.dispose() }, 'dsh-ssh-workspace: engine')
+  ctx.effect(() => () => { engine.dispose() }, 'dsh-ssh-dfy: engine')
 
   ctx.effect(() => {
     const disposers = makeRoutes({ store, engine }).map(route => ctx.webServer.register(route))
     return () => { for (const dispose of disposers) dispose() }
-  }, 'dsh-ssh-workspace: routes')
+  }, 'dsh-ssh-dfy: routes')
 
   ctx.effect(() => {
     const tools = [
@@ -45,5 +45,5 @@ export function apply(ctx: Context): void {
     ]
     const disposers = tools.map(tool => ctx.tools.register(tool))
     return () => { for (const dispose of disposers) dispose() }
-  }, 'dsh-ssh-workspace: tools')
+  }, 'dsh-ssh-dfy: tools')
 }

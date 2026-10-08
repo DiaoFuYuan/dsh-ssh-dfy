@@ -1,9 +1,9 @@
 /** Route family owned by this plugin (loopback-only). */
 export declare const API: {
-    readonly hosts: "/api/dsh-ssh-workspace/hosts";
-    readonly home: "/api/dsh-ssh-workspace/home";
-    readonly list: "/api/dsh-ssh-workspace/list";
-    readonly read: "/api/dsh-ssh-workspace/read";
+    readonly hosts: "/api/dsh-ssh-dfy/hosts";
+    readonly home: "/api/dsh-ssh-dfy/home";
+    readonly list: "/api/dsh-ssh-dfy/list";
+    readonly read: "/api/dsh-ssh-dfy/read";
 };
 /** Authentication kind a host entry uses. */
 export type AuthKind = 'agent' | 'key' | 'password';
