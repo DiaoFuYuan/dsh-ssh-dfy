@@ -1,0 +1,8 @@
+# dsh-ssh-workspace bundle patch: inserts the plugin row into a dsh profile.
+# The row is a bare plugin by package name: the node half (exports ".") runs in the
+# host process (SSH engine, /api/dsh-ssh-workspace routes, agent tools), and the
+# dsh.client declaration in package.json loads the browser half (exports "./client")
+# into the web GUI.
+- insert:
+    - id: ssh-workspace
+      name: 'dsh-ssh-workspace'

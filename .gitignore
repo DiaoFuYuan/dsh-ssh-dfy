@@ -1,0 +1,4 @@
+node_modules/
+lib/.client-body.cjs
+*.log
+.DS_Store
