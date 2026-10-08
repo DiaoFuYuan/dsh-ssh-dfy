@@ -1,59 +1,68 @@
 /**
  * dsh-ssh-dfy — browser half.
  *
- * Registers the sidebar row and the center-column page for the SSH workspace,
- * exactly like the shipped panel pages: the shell owns the row box, the label
- * and the panel switch; this module contributes the glyph and the page.
+ * Contributes ONE right-sidebar tab: the remote workspace (host picker →
+ * workspace root → file tree). The main conversation column is untouched —
+ * you chat on the left and browse the server on the right.
  *
- * Failure policy: mounting problems are logged, never thrown — an external
- * plugin must not take the GUI boot down.
+ * Failure policy: mounting problems are logged, never thrown.
  */
 import type { Context as ClientContext } from '@deepseek-ai/cordis'
 import type {} from '@deepseek-ai/dsh-client-ui-slots'
 import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
-import { WorkspaceIcon, WorkspacePanel } from './panel'
+import { SshIcon, WorkspacePanel } from './panel'
 
-/** The panel id shared by the sidebar row and the main-slot page. */
-export const PANEL_ID = 'ssh-dfy'
+/** Right-sidebar tab id shared by the tab declaration and its body. */
+const TAB_ID = 'ssh-dfy'
 
-/** Row order among the shell's global panel rows. */
-const PANEL_ORDER = 45
+/** Services required before the right-sidebar tab can mount. */
+export const inject = ['slots', 'sidebarRightTabs']
 
-/** Required service: the slot registry owned by the renderer. */
-export const inject = ['slots']
+/** Minimal face of the right-sidebar tab registry. */
+interface SidebarRightTabs {
+  register(options: Record<string, unknown>): () => void
+}
 
-/** Minimal face of the slot registry this plugin uses. */
+/** Minimal face of the slot registry. */
 interface SlotRegistry {
   inject(key: string, callback: () => () => void): () => void
   register(options: Record<string, unknown>, component: unknown): () => void
 }
 
 /**
- * Register the sidebar row and the page.
- * @param ctx - client root context (service: slots).
+ * Declare the tab type and register its body.
+ * @param ctx - client root context.
  */
 export function apply(ctx: ClientContext): void {
-  const slots = (ctx as unknown as { slots?: SlotRegistry }).slots
-  if (slots === undefined) {
-    console.warn('[dsh-ssh-dfy] slot registry missing; panel not mounted')
+  const face = ctx as unknown as { slots?: SlotRegistry; sidebarRightTabs?: SidebarRightTabs }
+  const slots = face.slots
+  const tabs = face.sidebarRightTabs
+  if (slots === undefined || tabs === undefined) {
+    console.warn('[dsh-ssh-dfy] right sidebar services missing; panel not mounted')
     return
   }
   const disposers: Array<() => void> = []
   try {
-    disposers.push(slots.inject('sidebar.panellist', () => slots.register({
-      name: 'sidebar.panellist',
-      id: PANEL_ID,
-      order: PANEL_ORDER,
-      label: () => 'SSH',
-    }, WorkspaceIcon)))
-    disposers.push(slots.inject('main', () => slots.register({
-      name: 'main',
-      key: PANEL_ID,
+    disposers.push(tabs.register({
+      id: TAB_ID,
+      kind: TAB_ID,
+      title: () => 'SSH',
+      guide: [{
+        id: 'ssh-dfy.guide',
+        order: 46,
+        title: () => 'SSH 远程工作区',
+        description: () => '选择主机与工作区根目录，浏览该目录下的所有文件；对话里用 ssh_exec / ssh_ls / ssh_read 操作服务器',
+        icon: SshIcon,
+      }],
+    }))
+    disposers.push(slots.inject('sidebar.right.pane.tab', () => slots.register({
+      name: 'sidebar.right.pane.tab',
+      key: TAB_ID,
     }, WorkspacePanel)))
   } catch (error) {
-    console.warn('[dsh-ssh-dfy] panel registration failed:', error)
+    console.warn('[dsh-ssh-dfy] right sidebar registration failed:', error)
   }
   ctx.effect(() => () => {
     for (const dispose of disposers.splice(0)) dispose()
-  }, 'dsh-ssh-dfy: ui mounts')
+  }, 'dsh-ssh-dfy: right sidebar tab')
 }
